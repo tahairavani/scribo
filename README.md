@@ -1,38 +1,39 @@
 # Scribo
-a simple CLI tool for taking notes 
 
-## Install 
+A CLI application that can save and list notes quickly and efficiently.
 
-```bash 
+## To install :
+
+```bash
 #install from crates.io
-cargo install scribo
+	cargo install scribo
 #or install from my repository
-cargo install https:://github.com/tahairavani/scribo
+	cargo install https:://github.com/tahairavani/scribo
 ```
+	
+## Commands
 
-
-## Usage
-
-###  add new note
-
+### Add new note:
+	
 ```bash
 scribo add "note conntent" --tag "tag"
 ```
-
-###  remove note
-```bash 
+			
+### Remove notes:
+	
+```bash
 scribo delete note_id
 ```
-
-###  show your notes
-
-```bash 
+			
+### List notes:
+	
+```bash
 scribo list
 ```
-
-
-###  clear all notes
-```bash 
+	
+### Clear all notes
+	
+```bash
 scribo clear --yes
 ```
-
+			
