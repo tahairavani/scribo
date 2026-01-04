@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use std::fs;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize,Clone)]
 pub struct Note {
     pub id: u32,
     pub content: String,
@@ -35,14 +35,14 @@ impl Note {
         Some(notes)
     }
     //save to json file in ~/config/scribo.json
-    pub fn save_to_json(notes: &Vec<Self>) -> bool   {
+    pub fn save_to_json(notes: &Vec<Self>) -> Option<bool>   {
         let config_dir = dirs::config_dir().unwrap();
         let file_path = config_dir.join("scribo.json");
         let json = match serde_json::to_string_pretty(notes) {
             Ok(j) => j,
-            Err(_) => return false,
+            Err(_) => return Some(false),
         };
 
-        fs::write(file_path, json).is_ok()
+        Some(fs::write(file_path, json).is_ok())
     }
 }
