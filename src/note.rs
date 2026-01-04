@@ -30,6 +30,12 @@ impl Note {
     pub fn load_from_json() -> Option<Vec<Note>> {
         let config_dir = dirs::config_dir().unwrap();
         let file_path = config_dir.join("scribo.json");
+
+        if !file_path.exists() {
+            fs::File::create(&file_path).ok()?;
+            //add empty array to file
+            fs::write(&file_path, "[]").ok()?;
+        }
         let data = fs::read_to_string(file_path).ok()?;
         let notes: Vec<Note> = serde_json::from_str(&data).ok()?;
         Some(notes)
@@ -38,6 +44,13 @@ impl Note {
     pub fn save_to_json(notes: &Vec<Self>) -> Option<bool>   {
         let config_dir = dirs::config_dir().unwrap();
         let file_path = config_dir.join("scribo.json");
+        //create file if not exist
+        if !file_path.exists() {
+            fs::File::create(&file_path).ok()?;
+            //add empty array to file
+            fs::write(&file_path, "[]").ok()?;
+            
+        }
         let json = match serde_json::to_string_pretty(notes) {
             Ok(j) => j,
             Err(_) => return Some(false),
